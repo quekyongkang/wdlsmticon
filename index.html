@@ -35,7 +35,18 @@
   </style>
 </head>
 <body>
-  <!-- Embedded Apps Script inside full-screen shell -->
-  <iframe src="https://script.google.com/macros/s/AKfycbxpXslm2Kg1AA1-io4UgF0ewA7kJBMGT12S5OXRNdORn59lqSjhwwuCLUGw0YS8PCh5sw/exec" allow="geolocation; camera"></iframe>
+  <!-- Dynamic full-screen container -->
+  <iframe id="app-frame" allow="geolocation; camera"></iframe>
+
+  <script>
+    // Base Google Apps Script URL
+    const baseUrl = "https://script.google.com/macros/s/AKfycbxpXslm2Kg1AA1-io4UgF0ewA7kJBMGT12S5OXRNdORn59lqSjhwwuCLUGw0YS8PCh5sw/exec";
+
+    // Extract any query parameters attached to the GitHub link (e.g., "?page=form")
+    const currentParams = window.location.search;
+
+    // Forward parameters into the iframe source URL
+    document.getElementById("app-frame").src = baseUrl + currentParams;
+  </script>
 </body>
 </html>
