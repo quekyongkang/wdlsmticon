@@ -48,8 +48,18 @@
     // Extract any query parameters attached to the GitHub link (e.g., "?page=form")
     const currentParams = window.location.search;
 
-    // Forward parameters into the iframe source URL
+    // Forward parameters into the iframe source URL on initial load
     document.getElementById("app-frame").src = baseUrl + currentParams;
+
+    // Listen for navigation updates sent from the Apps Script iframe
+    window.addEventListener("message", function(event) {
+      if (event.data && event.data.type === "UPDATE_URL") {
+        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + event.data.queryString;
+        
+        // Update browser URL without triggering a page reload
+        window.history.replaceState({ path: newUrl }, '', newUrl);
+      }
+    });
   </script>
 </body>
 </html>
